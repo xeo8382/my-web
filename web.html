@@ -1,0 +1,268 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Over — Drip With Passion</title>
+
+<style>
+* { box-sizing: border-box; }
+
+body {
+  margin: 0;
+  font-family: 'Arial', sans-serif;
+  background: #0f0f0f;
+  color: #eee;
+  line-height: 1.6;
+}
+
+/* HEADER */
+header {
+  background: #000;
+  padding: 1rem 2rem;
+  border-bottom: 1px solid #222;
+}
+
+nav {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.logo {
+  font-size: 1.8rem;
+  font-weight: bold;
+  letter-spacing: 2px;
+}
+
+nav ul {
+  list-style: none;
+  display: flex;
+  gap: 1.2rem;
+  padding: 0;
+}
+
+nav a {
+  color: #eee;
+  text-decoration: none;
+}
+
+nav a:hover {
+  color: #ff004f;
+}
+
+/* HERO */
+.hero {
+  height: 85vh;
+  background: linear-gradient(rgba(0,0,0,0.7), rgba(0,0,0,0.9)),
+  url("https://images.unsplash.com/photo-1520975916090-3105956dac38?auto=format&fit=crop&w=1600&q=80");
+  background-size: cover;
+  background-position: center;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+}
+
+.hero h1 {
+  font-size: 3.5rem;
+  text-transform: uppercase;
+}
+
+.hero p {
+  font-size: 1.2rem;
+  color: #bbb;
+}
+
+.btn {
+  margin-top: 1.5rem;
+  padding: 0.8rem 2rem;
+  background: #ff004f;
+  color: white;
+  text-decoration: none;
+  border-radius: 30px;
+}
+
+.btn:hover {
+  background: #cc003f;
+}
+
+/* PRODUCTS */
+#products {
+  padding: 3rem 2rem;
+}
+
+#products h2 {
+  text-align: center;
+  margin-bottom: 2rem;
+  letter-spacing: 2px;
+}
+
+.product-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+  gap: 2rem;
+}
+
+.product {
+  background: #111;
+  border-radius: 10px;
+  padding: 1rem;
+  text-align: center;
+  transition: transform 0.3s;
+}
+
+.product:hover {
+  transform: translateY(-8px);
+}
+
+.product img {
+  width: 100%;
+  height: 320px;
+  object-fit: cover;
+  border-radius: 10px;
+}
+
+.product h3 {
+  margin-top: 1rem;
+}
+
+.product p {
+  color: #ff004f;
+  font-size: 1.1rem;
+}
+
+.product button {
+  margin-top: 1rem;
+  padding: 0.6rem 1.5rem;
+  border: none;
+  background: #ff004f;
+  color: white;
+  border-radius: 20px;
+  cursor: pointer;
+}
+
+.product button:hover {
+  background: #cc003f;
+}
+
+/* ABOUT & CONTACT */
+#about, #contact {
+  padding: 3rem 2rem;
+  background: #0b0b0b;
+  text-align: center;
+}
+
+footer {
+  background: #000;
+  padding: 1rem;
+  text-align: center;
+  font-size: 0.9rem;
+  color: #777;
+}
+</style>
+</head>
+
+<body>
+
+<header>
+  <nav>
+    <div class="logo">OVER</div>
+    <ul>
+      <li><a href="#products">Shop</a></li>
+      <li><a href="#about">About</a></li>
+      <li><a href="#contact">Contact</a></li>
+      <li><a href="#" id="cart-link">Cart (0)</a></li>
+    </ul>
+  </nav>
+</header>
+
+<section class="hero">
+  <h1>OVER</h1>
+  <p>drip with passion</p>
+  <a href="#products" class="btn">Shop Now</a>
+</section>
+
+<section id="products">
+  <h2>FEATURED DROPS</h2>
+
+  <div class="product-grid">
+    <!-- 1) Gothic Hoodie -->
+    <div class="product">
+      <img src="https://images.unsplash.com/photo-1618354691373-d851c5c3a990?auto=format&fit=crop&w=800&q=80" alt="Gothic Hoodie">
+      <h3>Gothic Hoodie</h3>
+      <p>$65</p>
+      <button class="add-to-cart" data-product="Gothic Hoodie" data-price="65">Add to Cart</button>
+    </div>
+
+    <!-- 2) Nike Pair Shoe -->
+    <div class="product">
+      <img src="https://images.unsplash.com/photo-1600180758890-6b94519a8ba6?auto=format&fit=crop&w=800&q=80" alt="Nike Pair Shoe">
+      <h3>Nike Pair Shoe</h3>
+      <p>$120</p>
+      <button class="add-to-cart" data-product="Nike Pair Shoe" data-price="120">Add to Cart</button>
+    </div>
+  </div>
+</section>
+
+<section id="about">
+  <h2>ABOUT OVER</h2>
+  <p>Over is a streetwear brand built for those who move with passion, darkness, and confidence.</p>
+</section>
+
+<section id="contact">
+  <h2>CONTACT</h2>
+  <p>DM us on WhatsApp to place your order</p>
+</section>
+
+<footer>
+  <p>© 2026 OVER — drip with passion</p>
+</footer>
+
+<script>
+let cart = JSON.parse(localStorage.getItem("cart")) || [];
+const cartLink = document.getElementById("cart-link");
+
+updateCart();
+
+document.querySelectorAll(".add-to-cart").forEach(button => {
+  button.addEventListener("click", () => {
+    const product = button.dataset.product;
+    const price = parseFloat(button.dataset.price);
+
+    cart.push({ product, price });
+    localStorage.setItem("cart", JSON.stringify(cart));
+    updateCart();
+    alert(product + " added to cart!");
+  });
+});
+
+cartLink.addEventListener("click", () => {
+  if (cart.length === 0) {
+    alert("Your cart is empty.");
+    return;
+  }
+
+  let text = "I want to order:\n\n";
+  let total = 0;
+
+  cart.forEach(item => {
+    text += `${item.product} - $${item.price}\n`;
+    total += item.price;
+  });
+
+  text += `\nTotal: $${total}`;
+
+  // TODO: replace the number EXAMPLE below with your real WhatsApp number
+  // Format: countrycode + number (no + sign), e.g., 88017XXXXXXXX
+  window.open("https://wa.me/8801613021093?text=" + encodeURIComponent(text));
+});
+
+function updateCart() {
+  cartLink.textContent = `Cart (${cart.length})`;
+}
+</script>
+
+</body>
+</html>
